@@ -13,7 +13,8 @@ public class CustomerDaoImpl implements CustomerDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	public void setSessionfactory(SessionFactory sessionFactory) {
+
+	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 

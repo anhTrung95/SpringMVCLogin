@@ -34,7 +34,7 @@
 	</bean>
 
 	<bean id="customerDao" class="com.login.system.dao.CustomerDaoImpl">
-		<property name="sessionFactory" ref="sessionFactory"></property>
+		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 	<bean id="customerService" class="com.login.system.services.CustomerServiceImpl">
 		<property name="customerDao" ref="customerDao"></property>
