@@ -18,5 +18,9 @@ public class CustomerServiceImpl implements CustomerService {
 	public void saveCustomer(Customer customer) {
 		this.customerDao.saveCustomer(customer);
 	}
+	
+	public Customer loginCustomer(Customer customer) {
+		return this.customerDao.loginCustomer(customer);
+	}
 
 }

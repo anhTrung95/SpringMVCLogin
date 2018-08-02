@@ -40,9 +40,46 @@ public class CustomerController {
 		} else {
 			customerService.saveCustomer(customer);
 			session.setAttribute("customer", customer);
-			return "redirect:success";
+			return "redirect:user";
 		}
 		
 	}
 	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String showLogin(Locale locale, ModelMap model, HttpSession session) {
+		if (session.getAttribute("customer") == null) {
+			model.put("customerData", new Customer());
+			return "login/login";
+		} else {
+			return "redirect:user";
+		}
+	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String doLogin(Locale locale, ModelMap model, @ModelAttribute("customerData") Customer customer, HttpSession session) {
+		if (customer.getC_email() != null && customer.getC_password() != null && session.getAttribute("customer") == null) {
+			customer = customerService.loginCustomer(customer);
+			if (customer != null) {
+				session.setAttribute("customer", customer);
+				return "redirect:user";
+			} else {
+				model.put("failed", "Login Failed");
+				return "login/login";
+			}
+		} else {
+			return "redirect:user";
+		}
+	}
+	
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logOut(Locale locale, ModelMap model, HttpSession session) {
+		session.removeAttribute("customer");
+		return "redirect:login";
+	}
+	
+	@RequestMapping(value = "/user", method = RequestMethod.GET)
+	public String showSuccess(ModelMap model) {
+		model.put("user", new Customer());
+		return "user";
+	}
 }

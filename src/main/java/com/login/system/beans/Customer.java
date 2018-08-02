@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.beans.factory.annotation.Autowired;
 
 	@Entity
 	@Table  // no need to mention table name by default it takes class name
@@ -31,7 +32,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 		private String c_gender;
 		
 		@NotEmpty
-		@Column
+		@Column(unique=true)
 		private String c_email;
 		
 		@NotEmpty
