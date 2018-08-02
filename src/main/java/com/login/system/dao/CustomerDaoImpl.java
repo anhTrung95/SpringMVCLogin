@@ -4,6 +4,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.login.system.beans.Customer;
@@ -18,8 +19,9 @@ public class CustomerDaoImpl implements CustomerDao {
 		this.sessionFactory = sessionFactory;
 	}
 
+	@Autowired
 	@Override
-	public void saveCustomer(Customer customer) {
+	public void saveCustomer(Customer customer) throws Exception {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		if(customer!=null){
@@ -30,7 +32,8 @@ public class CustomerDaoImpl implements CustomerDao {
 			} catch (Exception e) {
 				tx.rollback();
 				session.close();
-				e.printStackTrace();
+				throw new Exception(e.getMessage(), e);
+				//e.printStackTrace();
 			}
 		}
 

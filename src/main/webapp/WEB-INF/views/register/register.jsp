@@ -45,6 +45,7 @@
 				</tr>
 			</s:form>
 		</table>
+		<p style="color:red;">${duplicate }</p>
 		<p><a href="${pageContext.request.contextPath}/customer/login">Login</a></p>
 	</div>
 </body>

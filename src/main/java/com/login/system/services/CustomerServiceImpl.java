@@ -15,12 +15,23 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public void saveCustomer(Customer customer) {
-		this.customerDao.saveCustomer(customer);
+	public void saveCustomer(Customer customer) throws Exception {
+		try {
+			this.customerDao.saveCustomer(customer);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw new Exception(e.getMessage(), e);
+		}
 	}
 	
 	public Customer loginCustomer(Customer customer) {
 		return this.customerDao.loginCustomer(customer);
 	}
+
+	/*@Override
+	public boolean existsByEmail(String email, Class model_class) {
+		// TODO Auto-generated method stub
+		return false;
+	}*/
 
 }

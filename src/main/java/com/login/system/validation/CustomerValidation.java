@@ -28,5 +28,4 @@ public class CustomerValidation implements Validator {
 
 	}
 	
-
 }

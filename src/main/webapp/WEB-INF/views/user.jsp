@@ -10,6 +10,9 @@
 	<h1></h1>
 	<div>
 		<div align="right">
+			<a href="${pageContext.request.contextPath}/">
+				<b>Home</b>
+			</a>
 			<a href="${pageContext.request.contextPath}/customer/logout">
 				<b>Log out</b>
 			</a>
