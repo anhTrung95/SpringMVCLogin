@@ -1,19 +1,29 @@
 package com.login.system.controllers;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.login.system.beans.Customer;
+import com.login.system.exceptions.CustomerNotFoundException;
 import com.login.system.services.CustomerService;
 import com.login.system.validation.CustomerValidation;
 
@@ -21,9 +31,37 @@ import com.login.system.validation.CustomerValidation;
 @Controller
 @RequestMapping(value="/customer")
 public class CustomerController {
+	
+	public static Logger log = LoggerFactory.getLogger(CustomerController.class);
 
 	@Autowired
 	private CustomerService customerService;
+	
+	@RequestMapping(value="/{id}", method=RequestMethod.GET)
+	public String getCustomer(@PathVariable("id") int id, Model model) throws Exception {
+		if(id==1) {
+			throw new CustomerNotFoundException(id);
+		} else if (id==2) {
+			throw new SQLException("SQL Exception, id=" + id);
+		} else if(id==3){
+			throw new IOException("IOException, id="+id);
+		} else {
+			throw new Exception("Generic Exception, id="+id);
+		}
+	}
+	
+	@ExceptionHandler(CustomerNotFoundException.class)
+	public ModelAndView handleCustomerNotFoundException(HttpServletRequest request, Exception ex){
+		log.error("Requested URL="+request.getRequestURL());
+		log.error("Exception Raised="+ex);
+		
+		ModelAndView modelAndView = new ModelAndView();
+	    modelAndView.addObject("exception", ex);
+	    modelAndView.addObject("url", request.getRequestURL());
+	    
+	    modelAndView.setViewName("error");
+	    return modelAndView;
+	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String showForm(Locale locale, ModelMap model, HttpSession session) {
