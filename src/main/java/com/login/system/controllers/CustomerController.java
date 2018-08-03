@@ -1,19 +1,14 @@
 package com.login.system.controllers;
 
-import java.sql.SQLException;
 import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.ConstraintValidatorContext;
 import javax.validation.Valid;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,10 +37,7 @@ public class CustomerController {
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	//@ExceptionHandler({SQLException.class,ConstraintViolationException.class})
 	public String saveForm(Locale locale, ModelMap model, @ModelAttribute("customerData") @Valid Customer customer, BindingResult br, HttpSession session) {
-		CustomerValidation customerValidation = new CustomerValidation();
-		customerValidation.validate(customerValidation, br);
 		if (br.hasErrors()) {
 			return "register/register";
 		} else {

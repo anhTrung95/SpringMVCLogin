@@ -33,6 +33,7 @@
 					<td>Customer email:</td>
 					<td><s:input path="c_email"/></td>
 					<td><s:errors path="c_email" cssStyle="color:red;"/></td>
+					<td><p style="color:red;">${duplicate }</p></td>
 				</tr>
 				<tr>
 					<td>Customer password:</td>
@@ -45,7 +46,6 @@
 				</tr>
 			</s:form>
 		</table>
-		<p style="color:red;">${duplicate }</p>
 		<p><a href="${pageContext.request.contextPath}/customer/login">Login</a></p>
 	</div>
 </body>
