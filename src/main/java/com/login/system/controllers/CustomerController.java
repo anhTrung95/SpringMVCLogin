@@ -38,16 +38,25 @@ public class CustomerController {
 	private CustomerService customerService;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public String getCustomer(@PathVariable("id") int id, Model model) throws Exception {
-		if(id==1) {
+	public String getCustomer(@PathVariable("id") int id, ModelMap model) throws Exception {
+		Customer customer;
+		try {
+			customer = customerService.getCustomer(id);
+			model.put("customer", customer);
+			return "user";
+		} catch (Exception e) {
 			throw new CustomerNotFoundException(id);
-		} else if (id==2) {
-			throw new SQLException("SQL Exception, id=" + id);
-		} else if(id==3){
-			throw new IOException("IOException, id="+id);
-		} else {
-			throw new Exception("Generic Exception, id="+id);
 		}
+//		return null;
+//		if(id==1) {
+//			throw new CustomerNotFoundException(id);
+//		} else if (id==2) {
+//			throw new SQLException("SQL Exception, id=" + id);
+//		} else if(id==3){
+//			throw new IOException("IOException, id="+id);
+//		} else {
+//			throw new Exception("Generic Exception, id="+id);
+//		}
 	}
 	
 	@ExceptionHandler(CustomerNotFoundException.class)

@@ -58,4 +58,16 @@ public class CustomerDaoImpl implements CustomerDao {
 		return customer;
 	}
 
+	@Override
+	public Customer getCustomer(int customerId) throws Exception {
+		Session session = sessionFactory.openSession();
+		Customer customer;
+		try {
+			customer = (Customer) session.get(Customer.class, customerId);
+		} catch (Exception e) {
+			throw new Exception(e);
+		}
+		return customer;
+	}
+
 }

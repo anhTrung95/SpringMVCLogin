@@ -28,6 +28,15 @@ public class CustomerServiceImpl implements CustomerService {
 		return this.customerDao.loginCustomer(customer);
 	}
 
+	@Override
+	public Customer getCustomer(int customerId) throws Exception {
+		try {
+			return customerDao.getCustomer(customerId);
+		} catch (Exception e) {
+			throw new Exception(e);
+		}
+	}
+
 	/*@Override
 	public boolean existsByEmail(String email, Class model_class) {
 		// TODO Auto-generated method stub

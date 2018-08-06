@@ -8,5 +8,7 @@ public interface CustomerDao {
 
 	public Customer loginCustomer(Customer customer);
 	
+	public Customer getCustomer(int customerId) throws Exception;
+	
 	//public boolean existsByEmail(String email, Class model_class);
 }
